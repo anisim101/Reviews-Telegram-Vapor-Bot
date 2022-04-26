@@ -2,19 +2,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "Test",
+    name: "ReviewBot",
     platforms: [
        .macOS(.v12)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/vapor.git",
+                 from: "4.0.0"),
+        .package(url: "https://github.com/nerzh/telegram-vapor-bot",
+                 from: "1.2.4"),
+        .package(url: "https://github.com/vapor/fluent.git",
+                 from: "4.0.0"),
+        .package(url: "https://github.com/vapor/fluent-postgres-driver.git",
+                 from: "2.0.0"),
     ],
     targets: [
         .target(
             name: "App",
             dependencies: [
-                .product(name: "Vapor", package: "vapor")
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "telegram-vapor-bot", package: "telegram-vapor-bot"),
+                .product(name: "Fluent", package: "fluent"),
+                .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of

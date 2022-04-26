@@ -1,11 +1,11 @@
 import Vapor
+import telegram_vapor_bot
 
 func routes(_ app: Application) throws {
-    app.get { req in
-        return "It works!"
-    }
-
-    app.get("hello") { req -> String in
-        return "Hello, world!"
-    }
+    let apiGroup = app.grouped("api")
+    
+    let botAdminController = BotAdminController()
+    let reviewsController = ReviewsController()
+    try apiGroup.register(collection: reviewsController)
+    try apiGroup.register(collection: botAdminController)
 }
